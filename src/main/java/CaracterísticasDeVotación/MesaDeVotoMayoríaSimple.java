@@ -1,6 +1,6 @@
 package CaracterísticasDeVotación;
 
-public class MesaDeVotos {
+public class MesaDeVotoMayoríaSimple {
 	/*
 	 * Tipo de votación: anónima, no anónima, cuántas opciones, a cuantos tópicos máximo
 	 * se puede votar.
@@ -8,11 +8,11 @@ public class MesaDeVotos {
 	 * Decidir ganador: mostrar un top 3 (Si llegan a haber 3 tópicos o más sobre los que votar)
 	 * de los ganadores.
 	 */
+	private int numVotantes;
+	public MesaDeVotoMayoríaSimple (int numVotantes) {
+		this.numVotantes = numVotantes;
+	}
 	
-	/*
-	 * El constructor de la MesaDeVotos tiene que primero decidir el modo de voto
-	 */
 	
-	public MesaDeVotos ()
 	
 }

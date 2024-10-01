@@ -13,4 +13,17 @@ public class Votante {
 		
 		this.nombreYApellidos = nombreYApellidos;
 	}
+	
+	public int getVotos() {
+		return this.votos;
+	}
+	
+	public String nombreYApellidos() {
+		return this.nombreYApellidos;
+	}
+	
+	public void castVote() {
+		
+	}
+	
 }

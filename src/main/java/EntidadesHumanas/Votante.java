@@ -24,6 +24,8 @@ public class Votante {
 	
 	public void castVote() {
 		
+		votos--;
 	}
+	
 	
 }

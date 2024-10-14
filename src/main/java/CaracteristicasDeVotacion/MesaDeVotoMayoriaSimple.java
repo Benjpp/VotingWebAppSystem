@@ -1,4 +1,4 @@
-package CaracterísticasDeVotación;
+package CaracteristicasDeVotacion;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -6,7 +6,7 @@ import java.util.Map;
 
 import EntidadesHumanas.Votante;
 
-public class MesaDeVotoMayoríaSimple implements MesaDeVoto{
+public class MesaDeVotoMayoriaSimple implements MesaDeVoto{
 	/*
 	 * Tipo de votación: anónima, no anónima, cuántas opciones, a cuantos tópicos máximo
 	 * se puede votar.
@@ -23,7 +23,7 @@ public class MesaDeVotoMayoríaSimple implements MesaDeVoto{
 	private Map <Votante, Boolean> listaDeVotantes = new HashMap<>();  
 	private Map <String, Integer> listaDeCandidaatos = new HashMap<>();
 	
-	public MesaDeVotoMayoríaSimple (ArrayList<String> listaDeCandidatos) {
+	public MesaDeVotoMayoriaSimple (ArrayList<String> listaDeCandidatos) {
 		for (String candidato: listaDeCandidatos) {
 			this.listaDeCandidaatos.put(candidato, 0);
 		}

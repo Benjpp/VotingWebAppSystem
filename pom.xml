@@ -4,4 +4,15 @@
   <artifactId>PersonalProject</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <name>VotingSystem</name>
+  
+  <dependencies>
+	  <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine -->
+	<dependency>
+    	<groupId>org.junit.jupiter</groupId>
+    	<artifactId>junit-jupiter-engine</artifactId>
+    	<version>5.10.2</version>
+    	<scope>test</scope>
+	</dependency>
+  </dependencies>
+
 </project>

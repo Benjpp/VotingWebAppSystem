@@ -56,7 +56,7 @@ public class MesaDeVoto implements Mesas{
 	public void anyadirCandidato (Candidato candidato) {
 		this.listaDeCandidatos.add(candidato);
 	}
-
+	
 	/*
 	 * Getter
 	 * 
@@ -90,8 +90,17 @@ public class MesaDeVoto implements Mesas{
 	
 	@Override
 	public boolean votantesHanVotado() {
-		// TODO Auto-generated method stub
-		return false;
+		for (boolean bool: this.controlDeVotaciones.values()) {
+			if(bool ^ true) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	@Override
+	public void anyadirVotante(Votante vot) {
+		this.controlDeVotaciones.put(vot, false);
 	}
 	
 	

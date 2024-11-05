@@ -15,7 +15,8 @@ import EntidadesHumanas.Votante;
  * 
  * Esta clase gestiona los candidatos y votantes, así como el proceso de votación.
  */
-public class MesaDeVoto implements Mesas, OperacionesSobreVotantesEnMesa {
+public class MesaDeVoto implements Mesas, OperacionesSobreVotantesEnMesa,
+									OperacionesSobreCandidatos{
     
     // =======================
     // Atributos de Instancia
@@ -97,15 +98,22 @@ public class MesaDeVoto implements Mesas, OperacionesSobreVotantesEnMesa {
     
     /**
      * Implementación del método para decidir el ganador de la votación.
+     * 
+     * @return true si el ganador se ha podido decidir, false si no se ha podido decidir
      */
     @Override
-    public void decidirGanador() {
+    public boolean decidirGanador() {
         Collections.sort(this.listaDeCandidatos, new ComparadorDeVotosRecibidosMayorMenor());
         int contadorRanking = 0;
-        for (Candidato cand : this.listaDeCandidatos) {
-        	this.rankingResultados.put(contadorRanking, cand);
-        	contadorRanking++;
+        
+        if(this.votantesHanVotado()) {
+        	for (Candidato cand : this.listaDeCandidatos) {
+            	this.rankingResultados.put(contadorRanking, cand);
+            	contadorRanking++;
+            }
+        	return true;
         }
+        return false;
     }
     
     // =======================

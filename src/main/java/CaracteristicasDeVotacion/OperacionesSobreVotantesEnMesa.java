@@ -15,5 +15,12 @@ public interface OperacionesSobreVotantesEnMesa {
      * @return true si el votante existe y se ha podido hacer el computo, false si el votante no existe.
      */
     public boolean computarSiVotanteHaVotado(Votante votante);
+    
+    /**
+     * Verifica si todos los votantes han votado.
+     *
+     * @return true si todos los votantes han votado, false si al menos uno no ha votado.
+     */
+    public boolean votantesHanVotado();
 }
 

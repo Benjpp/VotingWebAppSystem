@@ -33,17 +33,5 @@ public interface Mesas {
      */
     public void anyadirVotante(String nombreYApellidos, int votosAsignados);
     
-    /**
-     * Decide el ganador de la votación basándose en los votos recibidos por los candidatos.
-     * La lógica de decisión debe ser implementada por las clases que implementen esta interfaz.
-     */
-    public void decidirGanador();
-    
-    /**
-     * Verifica si todos los votantes han votado.
-     *
-     * @return true si todos los votantes han votado, false si al menos uno no ha votado.
-     */
-    public boolean votantesHanVotado();
 }
 

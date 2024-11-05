@@ -84,6 +84,14 @@ public class Votante {
 		return votado;
 	}
 	
+	public boolean castBlankVote() {
+		if(this.votosDisponibles > 0) {
+			VotoEnBlanco.incrementarVotosEnBlanco();
+			return true;
+		}
+		return false;
+	}
+	
 	@Override
 	public String toString() {
 		return this.nombreYApellidos;

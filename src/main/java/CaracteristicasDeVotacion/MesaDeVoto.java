@@ -10,6 +10,7 @@ import Comparadores.ComparadorDeVotosRecibidosMayorMenor;
 import EntidadesHumanas.Candidato;
 import EntidadesHumanas.Votante;
 
+
 /**
  * Clase que representa una mesa de votación (MesaDeVoto).
  * 

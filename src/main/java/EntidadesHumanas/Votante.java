@@ -1,8 +1,12 @@
 package EntidadesHumanas;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.ArrayList;
+
+import CaracteristicasDeVotacion.MesaDeVoto;
+import MisExcepciones.CandidatoExcepcion;
+import MisExcepciones.VotanteExcepcion;
 
 /**
  * Clase que representa a un votante (Votante).
@@ -12,7 +16,7 @@ public class Votante {
     // =======================
     // Atributos Estáticos
     // =======================
-    private static int totalDeVotantes = 0;
+    public static int totalDeVotantes = 0;
 
     // =======================
     // Atributos de Instancia
@@ -55,36 +59,47 @@ public class Votante {
      * Método que emite un voto para un candidato dado.
      * 
      * @param candidato El candidato para el que se vota.
-     * @return Verdadero si el voto fue emitido con éxito, falso en caso contrario.
+     * @return Mensaje indicando si el voto fue emitido con éxito o no.
      */
-    public boolean castVote(Candidato candidato) {
+    public String castVote(Candidato candidato) throws VotanteExcepcion, CandidatoExcepcion {
         boolean votado = this.candidatoVotado(candidato);
-        
-        if (!votado && this.votosDisponibles > 0) {
-            candidato.incrementarVotos();
-            this.votosDisponibles -= 1;
-            System.out.println(this.nombreYApellidos + " ha votado de forma exitosa a " + candidato.toString());
+        if (this.votosDisponibles < 0) {
+            throw new VotanteExcepcion ("ERROR: El votante no tiene votos disponibles.");
         }
         
-        return !votado && this.votosDisponibles > 0;
+        if(!votado) {
+            candidato.incrementarVotos();
+            this.votosDisponibles -= 1;
+            this.candidatosVotados.add(candidato);
+            return this.nombreYApellidos + " ha votado de forma exitosa a " + candidato.toString();
+        }
+        return this.nombreYApellidos + " no ha votado de forma exitosa a " + candidato.toString();
+    }
+
+    public String castVote(String candidato, MesaDeVoto mesaDeVoto) throws VotanteExcepcion, CandidatoExcepcion {
+        Candidato candidatoVotado = mesaDeVoto.getCandidato(candidato);
+        return candidatoVotado == null ? "El candidato no existe" : this.castVote(candidatoVotado);
+        
+
     }
 
     /**
      * Método que elimina un voto para un candidato dado.
      * 
      * @param candidato El candidato para el que se desea eliminar el voto.
-     * @return Verdadero si el voto fue eliminado con éxito, falso en caso contrario.
+     * @return Mensaje indicando si el voto fue eliminado con éxito y en caso contrario devuelve null.
      */
-    public boolean removeVote(Candidato candidato) {
+    public String removeVote(Candidato candidato) throws CandidatoExcepcion {
         boolean votado = this.candidatoVotado(candidato);
         
         if (votado) {
             candidato.decrementarVotos();
             this.votosDisponibles += 1;
             this.candidatosVotados.remove(candidato);
+            return "Has eliminado tu voto para " + candidato.toString();
         }
         
-        return votado;
+        return null;
     }
 
     /**

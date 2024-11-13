@@ -1,4 +1,8 @@
 package CaracteristicasDeVotacion;
+import java.util.Map;
+
+import EntidadesHumanas.Candidato;
+import MisExcepciones.MesaDeVotoExcepcion;
 
 public interface OperacionesSobreCandidatos {
 	
@@ -8,5 +12,5 @@ public interface OperacionesSobreCandidatos {
      * 
      * @return true si se pudo decidir el ganador, false si no se pudo decidir el ganador
      */
-    public boolean decidirGanador();
+    public Map<Integer, Candidato> decidirGanador() throws MesaDeVotoExcepcion;
 }

@@ -1,5 +1,6 @@
 package EntidadesHumanas;
 
+import MisExcepciones.CandidatoExcepcion;
 import java.util.Objects;
 
 /**
@@ -50,7 +51,10 @@ public class Candidato {
         this.votosRecibidos += 1;
     }
     
-    public void decrementarVotos() {
+    public void decrementarVotos() throws CandidatoExcepcion {
+        if(this.votosRecibidos < 0){
+            throw new CandidatoExcepcion("ERROR: No se puede decrementar más votos de los que ya tiene el candidato.");
+        }
         this.votosRecibidos -= 1;
     }
 

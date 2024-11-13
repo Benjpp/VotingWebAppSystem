@@ -1,7 +1,8 @@
 package CaracteristicasDeVotacion;
 
-import EntidadesHumanas.Votante;
+import java.util.List;
 
+import EntidadesHumanas.Votante;
 /**
  * Interfaz que define operaciones relacionadas con la gestión de votantes en una mesa de votación.
  * Esta interfaz permite computar si un votante ha ejercido su derecho al voto.
@@ -22,5 +23,10 @@ public interface OperacionesSobreVotantesEnMesa {
      * @return true si todos los votantes han votado, false si al menos uno no ha votado.
      */
     public boolean votantesHanVotado();
+
+    /**
+     * Rettorna en un ArrayList los votantes de la mesa
+     */
+    public List<Votante> getVotantes();
 }
 

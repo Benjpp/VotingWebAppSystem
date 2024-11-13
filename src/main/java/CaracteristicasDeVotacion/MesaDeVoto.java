@@ -9,7 +9,7 @@ import java.util.Map;
 import Comparadores.ComparadorDeVotosRecibidosMayorMenor;
 import EntidadesHumanas.Candidato;
 import EntidadesHumanas.Votante;
-
+import MisExcepciones.MesaDeVotoExcepcion;
 
 /**
  * Clase que representa una mesa de votación (MesaDeVoto).
@@ -84,6 +84,33 @@ public class MesaDeVoto implements Mesas, OperacionesSobreVotantesEnMesa,
     // =======================
     
     /**
+     * Obtiene el mapa de control de votaciones.
+     * 
+     * @return El mapa de control de votaciones.
+     */
+    public Map<Votante, Boolean> getControlDeVotaciones() {
+        return controlDeVotaciones;
+    }
+
+    /**
+     * Obtiene el mapa de ranking de resultados de los candidatos.
+     * 
+     * @return El mapa de ranking de resultados de los candidatos.
+     */
+    public Map<Integer, Candidato> getRankingResultados() {
+        return rankingResultados;
+    }
+
+    /**
+     * Obtiene la lista de candidatos que participan en la votación.
+     * 
+     * @return La lista de candidatos.
+     */
+    public List<Candidato> getListaDeCandidatos() {
+        return listaDeCandidatos;
+    }
+
+    /**
      * Obtiene el número de votos recibidos por un candidato.
      * 
      * @param candidato El candidato cuyo número de votos se desea conocer.
@@ -103,18 +130,18 @@ public class MesaDeVoto implements Mesas, OperacionesSobreVotantesEnMesa,
      * @return true si el ganador se ha podido decidir, false si no se ha podido decidir
      */
     @Override
-    public boolean decidirGanador() {
+    public Map<Integer,Candidato> decidirGanador() throws MesaDeVotoExcepcion {
         Collections.sort(this.listaDeCandidatos, new ComparadorDeVotosRecibidosMayorMenor());
         int contadorRanking = 0;
         
         if(this.votantesHanVotado()) {
         	for (Candidato cand : this.listaDeCandidatos) {
-            	this.rankingResultados.put(contadorRanking, cand);
-            	contadorRanking++;
+            	this.rankingResultados.put(++contadorRanking, cand);
             }
-        	return true;
+        	return this.rankingResultados;
+        }else{
+            throw new MesaDeVotoExcepcion("ERROR: No se puede decidir el ganador porque no todos los votantes han votado.");
         }
-        return false;
     }
     
     // =======================
@@ -128,12 +155,15 @@ public class MesaDeVoto implements Mesas, OperacionesSobreVotantesEnMesa,
      */
     @Override
     public boolean votantesHanVotado() {
-        for (boolean bool : this.controlDeVotaciones.values()) {
-            if (!bool) {
-                return false;
+        boolean res = true;
+        for (Votante votante : this.controlDeVotaciones.keySet()) {
+            if (this.computarSiVotanteHaVotado(votante)) {
+                this.controlDeVotaciones.put(votante, true);
+            }else{
+                res = false;
             }
         }
-        return true;
+        return res;
     }
     
     /**
@@ -168,11 +198,34 @@ public class MesaDeVoto implements Mesas, OperacionesSobreVotantesEnMesa,
         if (!this.controlDeVotaciones.containsKey(votante)) {
             return false; // El votante no está en la mesa
         }
-        if (votante.getVotos() == 0) {
-            this.controlDeVotaciones.put(votante, true); // Marcar como que ha votado
+        return votante.getVotos() == 0; // El votante ha votado
+    }
+
+    /**
+     * Obtiene la lista de votantes de la mesa.
+     */
+    @Override
+    public List<Votante> getVotantes() {
+        List<Votante> votantes = new ArrayList<>();
+        for (Votante votante : this.controlDeVotaciones.keySet()) {
+            votantes.add(votante);
         }
-        
-        return true;
+        return votantes;
+    }
+
+    /**
+     * Busca un candidato en la mesa de votación por su nombre.
+     * 
+     * @param nombre El nombre del candidato a buscar.
+     * @return El candidato si se encuentra en la mesa, null en caso contrario.
+     */
+    public Candidato getCandidato(String nombre) {
+        for (Candidato candidato : this.listaDeCandidatos) {
+            if (candidato.getNombreYApellidos().equalsIgnoreCase(nombre)) {
+                return candidato;
+            }
+        }
+        return null;
     }
 }
 
